@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html><
+<head>
+
+</head>
+<body>
+    <script>
+        //Implement rock paper scissors.
+        //Need to create a "makemove" function that can be accessed by users or computer.
+
+        function playRound(move1, move2) {
+            move1 = move1.toLowerCase();
+            move2 = move2.toLowerCase();
+            let legalMoves = ["rock", "paper", "scissors"];
+            if ((legalMoves.includes(move1)) && (legalMoves.includes(move2))) {
+                if (move1 == move2) {
+                    return "tie";
+                } else if (
+                    (legalMoves.indexOf(move1) -1) == (legalMoves.indexOf(move2))
+                    || ((legalMoves.indexOf(move1) == 0) &&  (legalMoves.indexOf(move2) == legalMoves.length - 1))){
+                        return "player1";
+                    } else {
+                        //This else/if will need to be updated if more options are added.
+                        return "player2";
+                    }
+            } else {
+                console.log("Illegal move was made!");
+                return "illegal";
+            }
+        }
+
+        playRound("rock", "rock");
+        playRound("rock", "scissors");
+        playRound("paper", "scissors");
+    </script>
+</body>
+</html>
