@@ -1,65 +1,45 @@
 <!DOCTYPE html>
-<html><
+<html>
 <head>
-
+    <title>Scissors, Paper, Rock!</title>
+    <link rel = "stylesheet" type = "text/css" href = "style.css" />
+    
 </head>
 <body>
-    <script>
-        //Implement rock paper scissors.
-        //Need to create a "makemove" function that can be accessed by users or computer.
+    <div id="Info">
+        <h1>Scissors, Paper, Rock!</h1>
+        <p> A simple implementation of the schoolyard classic: <br>  <strong> Scissors, Paper, Rock </strong> <br> Use it to settle bets as your heart desires.</p>
+    </div>
+    <div id = 'game'>
+        <div id = 'players'>
+            <div class = 'player human'>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Einstein-formal_portrait-35.jpg">
+                <h2>Player 1</h2>
+                <form id = "player1choice">
+                    <input type="radio" name = "game" value = "scissors" id = "scissors" checked> <label for="scissors">Scissors</label>
+                    <input type="radio" name = "game" value = "paper" id = "paper"><label for="paper">Paper</label>
+                    <input type="radio" name = "game" value = "rock" id = "paper"><label for="rock">Rock</label>
+                </form> <button id="play">Scissors, Paper, Rock!</button>
+                <p> Awaiting your selection.</p>
+            </div>
+            <div class = 'player computer'>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Toyota_Robot_at_Toyota_Kaikan.jpg">
+                    <h2>Player 2</h2>
+                    <p> The robot is thinking...</p>
+            </div>
+        </div>
+        <div id = "results">
+            <div id ="tally">
+                <p> Awaiting player choices.</p>
+            </div>
+            <div id = "playgame">
+                <button id="play">Start a new game?</button>
+            </div>
+        </div>
 
-        const legalMoves = ["rock", "paper", "scissors"];
+    </div>
 
-        function playRound(move1, move2) {
-            move1 = move1.toLowerCase();
-            move2 = move2.toLowerCase();
-            if ((legalMoves.includes(move1)) && (legalMoves.includes(move2))) {
-                if (move1 == move2) {
-                    return "tie";
-                } else if (
-                    (legalMoves.indexOf(move1) -1) == (legalMoves.indexOf(move2))
-                    || ((legalMoves.indexOf(move1) == 0) &&  (legalMoves.indexOf(move2) == legalMoves.length - 1))){
-                        return "player1";
-                    } else {
-                        //This else/if will need to be updated if more options are added.
-                        return "player2";
-                    }
-            } else {
-                console.log("Illegal move was made!");
-                return "illegal";
-            }
-        }
-
-        //Make the computer play automatically
-        function computerPlay() {
-            let choice = Math.floor(Math.random() * 3);
-            return legalMoves[choice];
-        }
-
-        //Time to play a 5 round game, at this tage vs computer (could adapt to make player2 a player).
-        function game(num = 5) {
-            player1Wins = 0;
-            player2Wins = 0;
-            for (i = 0; i < num; i++) {
-                player1Choice = prompt("Scissors, Paper, Rock!");
-                player2Choice = computerPlay();
-                console.log(player1Choice + ", " + player2Choice);
-                result = playRound(player1Choice, player2Choice);
-                (result == "player1") ? (player1Wins++) :
-                    (result == "player2") ? player2Wins++ :
-                    (result == "illegal") ? console.log("Illegal move made, fix this in playRound function.") : console.log("Tie round");
-                console.log(`Running tally, player 1 has ${player1Wins} wins. 
-                    Player 2 has ${player2Wins} wins.`);
-            }
-            let winner;
-            (player1Wins > player2Wins) ? winner = "Player 1" : (player2Wins > player1Wins) ? winner = "Player 2" : winner = "Draw";
-            if (winner == "Player 1" || winner == "Player 2") {
-                console.log(`The winner of the game is ${winner}.`);
-            } else {
-                console.log("The game ended in a draw.");
-            }
-        }
-
+    <script type="text/javascript" src="script.js">
     </script>
 </body>
 </html>

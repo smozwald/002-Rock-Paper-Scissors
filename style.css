@@ -1,0 +1,27 @@
+*{
+    box-sizing: border-box
+}
+
+body {
+    text-align:center;
+}
+
+img {
+    width: 10em;
+    height: 12em;
+    margin:2em;
+}
+
+div.player {
+    display: inline-block;
+    vertical-align:top;
+    border: 1px solid black;
+    height: 28em;
+    width:20em;
+    margin:2em;
+}
+
+#game {
+    border: 1px solid black;
+    padding: 2em;
+}
