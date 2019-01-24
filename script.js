@@ -1,10 +1,13 @@
 //Implement rock paper scissors.
 //Need to create a "makemove" function that can be accessed by users or computer.
 
-let player1wins = 0;
-let player2wins = 0;
+let player1Wins = 0;
+let player2Wins = 0;
 const form = document.querySelector("#play");
 const player1Choices = document.getElementsByName("game");
+const playerInfo = Array.from(document.querySelectorAll(".player p"))
+const tally = document.querySelector("#tally p");
+const reset = document.querySelector("#resetGame");
 
 const legalMoves = ["rock", "paper", "scissors"];
 let player2Choice =computerPlay();
@@ -49,32 +52,46 @@ function computerPlay() {
     return legalMoves[choice];
 }
 
-/* //Time to play a 5 round game, at this tage vs computer (could adapt to make player2 a player).
-function game(num = 5) {
+function updatePlayerSelections (p1Choice, p2Choice) {
+    answers = [p1Choice, p2Choice];
+    for (let i = 0; i < playerInfo.length; i++) {
+        playerInfo[i].innerHTML = `This player played ${answers[i]}!`;
+    }
+}
+
+function updateTally (p1Wins, p2Wins) {
+    let total = p1Wins + p2Wins;
+    let stringTally = `Player 1 has won ${p1Wins} games, and Player 2 has won ${p2Wins} games.`;
+    if (total >= 5) {
+        let winner =  (p1Wins > p2Wins) ? "Player 1." : (p2Wins > p1Wins) ? "Player 2." : "...It's a tie!";
+        stringTally += `.. which means the winner is ${winner}`;
+    }
+    tally.innerHTML = stringTally;
+}
+
+function newGame () {
+    tally.innerHTML = "New game begins, scores are back at 0!";
     player1Wins = 0;
     player2Wins = 0;
-    for (i = 0; i < num; i++) {
-        player2Choice = computerPlay();
-        player1Choice = prompt("Scissors, Paper, Rock!");
-        console.log(player1Choice + ", " + player2Choice);
-        result = playRound(player1Choice, player2Choice);
-        (result == "player1") ? (player1Wins++) :
-            (result == "player2") ? player2Wins++ :
-            (result == "illegal") ? console.log("Illegal move made, fix this in playRound function.") : console.log("Tie round");
-        console.log(`Running tally, player 1 has ${player1Wins} wins. 
-            Player 2 has ${player2Wins} wins.`);
-    }
-    let winner;
-    (player1Wins > player2Wins) ? winner = "Player 1" : (player2Wins > player1Wins) ? winner = "Player 2" : winner = "Draw";
-    if (winner == "Player 1" || winner == "Player 2") {
-        console.log(`The winner of the game is ${winner}.`);
-    } else {
-        console.log("The game ended in a draw.");
-    }
-} */
+}
 
 //Extending to allow DOM manipulation.
-player2Choice = computerPlay();
 form.addEventListener("click", function () {
-    player1Choice = playerPlay();
+    if ((player1Wins + player2Wins) >= 5) {
+        return;
+    }
+    player2Choice = computerPlay();
+    player1Choice = playerPlay(); 
+    updatePlayerSelections(player1Choice, player2Choice);
+    result = playRound(player1Choice, player2Choice);
+    if (result == "player1") {
+        player1Wins++;
+    } else if (result == "player2") {
+        player2Wins++;
+    }
+    updateTally(player1Wins, player2Wins);
+});
+
+reset.addEventListener("click", function () {
+    newGame();
 });
